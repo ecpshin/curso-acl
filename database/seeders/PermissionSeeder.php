@@ -2,10 +2,13 @@
 
 namespace Database\Seeders;
 
+//use App\Models\Permission;
+
 use App\Models\Permission;
+use App\Models\Role;
 use Illuminate\Database\Seeder;
 
-class PemissionSeeder extends Seeder
+class PermissionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,12 +20,16 @@ class PemissionSeeder extends Seeder
         Permission::query()->insert([
             ['name' => 'post_create'],
             ['name' => 'post_delete'],
+            ['name' => 'post_edit'],
             ['name' => 'post_update'],
             ['name' => 'post_view'],
             ['name' => 'user_create'],
             ['name' => 'user_delete'],
+            ['name' => 'user_edit'],
             ['name' => 'user_update'],
             ['name' => 'user_view']
         ]);
+
+
     }
 }

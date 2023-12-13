@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Permission;
+use App\Models\Role;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -15,17 +17,13 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-        DB::table('role')->create([
-            ['name' => 'Superadmin'],
-            ['name' => 'Admin'],
-            ['name' => 'User'],
-            ['Visitor' => 'Visitor'],
-        ]);
+        /*
 
-        DB::table('permissions')->create([
-            ['name'=> 'create_post'],
-
+         $this->call([
+            PermissionSeeder::class,
+            RoleSeeder::class,
         ]);
+        */
 
     }
 }

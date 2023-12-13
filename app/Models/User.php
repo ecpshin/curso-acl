@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -60,13 +61,29 @@ class User extends Authenticatable
         return $this->roles()->where('name', $role)->exists();
     }
 
-    public function hasPermission(string $permission): bool
-    {
-        return $this->roles->filter(fn($role) => $role->permissions()->where('name', $permission)->exist())->count() > 0;
-    }
-
+    /**
+     * @param array $nomes
+     * @return bool
+     */
     public function hasRoles(array $nomes): bool
     {
         return $this->roles()->whereIn('name', $nomes)->exists();
     }
+
+    /**
+     * @param string $permission
+     * @return bool
+     */
+    public function hasPermission(string $permission): bool
+    {
+        return $this->roles
+                ->filter(fn($role) => $role->permissions()->where('name', $permission)->exists())
+                ->count() > 0;
+    }
+
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
+
 }
